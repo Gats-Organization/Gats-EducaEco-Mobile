@@ -13,13 +13,20 @@
         android:theme="@style/Theme.EducaEco"
         tools:targetApi="31">
         <activity
+            android:name=".Missoes"
+            android:exported="false" />
+        <activity
+            android:name=".Jogos"
+            android:exported="false" />
+        <activity
+            android:name=".Perfil"
+            android:exported="false" />
+        <activity
             android:name=".Home"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".Login"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">
