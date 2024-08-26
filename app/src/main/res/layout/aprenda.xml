@@ -5,53 +5,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:theme="@style/Base.Theme.EducaEco"
     tools:context=".activities.Home">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="164dp"
-        android:layout_height="245dp"
-        android:layout_marginTop="120dp"
-        android:src="@drawable/logo_educaeco"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+    <ImageButton
+        android:id="@+id/voltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="102dp"
+        android:layout_marginBottom="368dp"
+        android:backgroundTint="@android:color/transparent"
+        android:theme="@style/Base.Theme.EducaEco"
+        app:layout_constraintBottom_toTopOf="@+id/divisoria2"
+        app:layout_constraintEnd_toStartOf="@+id/pagName"
+        app:layout_constraintHorizontal_bias="0.671"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/btn_voltar" />
+
+    <TextView
+        android:id="@+id/pagName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="102dp"
+        android:fontFamily="@font/righteous"
+        android:text="Aprenda"
+        android:textColor="#6D6D6D"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.261" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/btnPrática"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/btn_pratica"
-        app:layout_constraintEnd_toEndOf="@+id/btnAprenda"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnAprenda"
-        app:layout_constraintTop_toBottomOf="@+id/btnAprenda" />
-
-    <ImageView
-        android:id="@+id/btnQuiz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/btn_quiz"
-        app:layout_constraintEnd_toEndOf="@+id/btnPrática"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnPrática"
-        app:layout_constraintTop_toBottomOf="@+id/btnPrática" />
-
-    <ImageView
-        android:id="@+id/btnAprenda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/btn_aprenda"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <ImageView
         android:id="@+id/btnHome"
@@ -101,6 +87,8 @@
         app:layout_constraintTop_toBottomOf="@+id/divisoria2"
         app:layout_constraintVertical_bias="1.0" />
 
+
+
     <ImageView
         android:id="@+id/btnMissoes"
         android:layout_width="wrap_content"
@@ -123,6 +111,17 @@
         android:src="@drawable/btn_perfil"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/aprenda_conteiner"
+        android:layout_width="300dp"
+        android:layout_height="515dp"
+        app:layout_constraintBottom_toTopOf="@+id/divisoria2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pagName"
+        app:layout_constraintVertical_bias="0.438" />
 
     <ImageView
         android:id="@+id/imageView14"
@@ -172,25 +171,51 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="715dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="387dp" />
+        app:layout_constraintGuide_begin="714dp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toEndOf="@+id/btnQuiz"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnQuiz"
-        app:layout_constraintTop_toBottomOf="@+id/btnQuiz"
+        app:layout_constraintBottom_toTopOf="@+id/divisoria2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divisoria1"
+        app:layout_constraintVertical_bias="0.75"
+        app:srcCompat="@drawable/opcoes_aprenda" />
+
+    <ImageView
+        android:id="@+id/btnODS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5"
+        app:srcCompat="@drawable/btn_ods" />
+
+    <ImageView
+        android:id="@+id/btnESG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/btnODS"
+        app:srcCompat="@drawable/btn_esg" />
+
+    <ImageView
+        android:id="@+id/btnMeioAmbiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/btnESG"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/btn_ranking" />
+        app:srcCompat="@drawable/btn_meioambiente" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

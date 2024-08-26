@@ -1,8 +1,10 @@
-package com.mobile.educaeco;
+package com.mobile.educaeco.fragments;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.mobile.educaeco.R;
 
 public class Perfil extends AppCompatActivity {
 

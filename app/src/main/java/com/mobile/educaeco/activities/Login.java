@@ -1,23 +1,23 @@
-package com.mobile.educaeco;
+package com.mobile.educaeco.activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.mobile.educaeco.R;
 
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
-    ImageView btnLogin;
+    Button btnLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +45,14 @@ public class Login extends AppCompatActivity {
                 BottomSheetDialog modalConfirmarEsqueceuSenha = new BottomSheetDialog(Login.this);
                 View view3 = getLayoutInflater().inflate(R.layout.modal_confirmar_esqueceu_senha, null);
 
+                //Criação Modal de Esqueceu a Senha
+                BottomSheetDialog modalEsqueceuSenha = new BottomSheetDialog(Login.this);
+                View view4 = getLayoutInflater().inflate(R.layout.modal_esqueceu_senha, null);
+
+
                 TextView EsqueceuSenhaLogin = view1.findViewById(R.id.EsqueceuASenhaLogin);
 
-                ImageView btnFazerLogin = view1.findViewById(R.id.btnFazerLoginTrocarSenha);
+                Button btnFazerLogin = view1.findViewById(R.id.btnFazerLogin);
 
                 //Colocando a função do botão de esqueceu a senha
                 EsqueceuSenhaLogin.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +74,9 @@ public class Login extends AppCompatActivity {
                         btnSim.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(Login.this, "Próximo Modal", Toast.LENGTH_SHORT).show();
+                                modalConfirmarEsqueceuSenha.dismiss();
+                                modalEsqueceuSenha.setContentView(view4);
+                                modalEsqueceuSenha.show();
                             }
                         });
                     }
@@ -117,7 +124,7 @@ public class Login extends AppCompatActivity {
                                 public void onClick(View v) {
                                     if (  Objects.requireNonNull(inputEmailTrocarSenha.getText()).toString().equals(inputEmail.getText().toString()) ) {
                                         modalTrocarSenha.dismiss();
-                                        Intent intent = new Intent(Login.this, Home.class);
+                                        Intent intent = new Intent(Login.this, Main.class);
                                         startActivity(intent);
                                         finish();
                                     }
@@ -129,7 +136,7 @@ public class Login extends AppCompatActivity {
                         ) {
                             modalLogin.dismiss();
 
-                            Intent intent = new Intent(Login.this, Home.class);
+                            Intent intent = new Intent(Login.this, Main.class);
                             startActivity(intent);
                             finish();
                         }

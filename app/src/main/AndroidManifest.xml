@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,25 +12,26 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.EducaEco"
+        android:theme="@style/Base.Theme.EducaEco"
         tools:targetApi="31">
         <activity
-            android:name=".Missoes"
+            android:name=".fragments.Missoes"
             android:exported="false" />
         <activity
-            android:name=".Jogos"
+            android:name=".JogoLixoZero"
+            android:exported="false"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".fragments.Perfil"
             android:exported="false" />
         <activity
-            android:name=".Perfil"
-            android:exported="false" />
-        <activity
-            android:name=".Home"
+            android:name=".activities.Main"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".activities.Login"
             android:exported="true" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".activities.SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
