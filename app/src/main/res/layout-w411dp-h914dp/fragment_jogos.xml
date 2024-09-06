@@ -20,6 +20,7 @@
             android:backgroundTint="@android:color/transparent"
             android:theme="@style/Base.Theme.EducaEco"
             app:layout_constraintBottom_toTopOf="@+id/jogoLixoZero"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/pagName"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,35 +39,36 @@
             app:layout_constraintBottom_toTopOf="@+id/jogoLixoZero"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/voltar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
 
         <ImageView
             android:id="@+id/jogoLixoZero"
-            android:layout_width="325dp"
-            android:layout_height="225dp"
-            android:layout_marginTop="70dp"
+            android:layout_width="370dp"
+            android:layout_height="280dp"
             android:backgroundTint="@android:color/transparent"
             android:scaleX="1"
             android:scaleY="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.487"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.251"
+            app:layout_constraintVertical_bias="0.241"
             app:srcCompat="@drawable/btn_jogo_lixo_zero" />
 
         <ImageView
             android:id="@+id/jogoLutaEco"
-            android:layout_width="325dp"
-            android:layout_height="225dp"
+            android:layout_width="370dp"
+            android:layout_height="280dp"
             android:src="@drawable/btn_jogo_luta_eco"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/jogoLixoZero"
-            app:layout_constraintVertical_bias="0.291" />
+            app:layout_constraintVertical_bias="0.177" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

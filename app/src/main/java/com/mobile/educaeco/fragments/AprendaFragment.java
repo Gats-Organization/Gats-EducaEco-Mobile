@@ -2,11 +2,14 @@ package com.mobile.educaeco.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.mobile.educaeco.R;
 
@@ -25,6 +28,8 @@ public class AprendaFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    ImageView btnCincoRs, btnCidadeInteli, btnESG, btnRios, btnVoltar;
 
     public AprendaFragment() {
         // Required empty public constructor
@@ -62,5 +67,91 @@ public class AprendaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_aprenda, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Bundle bundle = new Bundle();
+
+        // Encontre o botão pelo ID
+        btnCincoRs = view.findViewById(R.id.btnCincoRs);
+        btnCidadeInteli = view.findViewById(R.id.btnCidadeInteli);
+        btnESG = view.findViewById(R.id.btnESG);
+        btnRios = view.findViewById(R.id.btnRios);
+        btnVoltar = view.findViewById(R.id.voltar);
+
+        // Definir o clique do botão para trocar de fragmento
+        btnCincoRs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConteudosFragment conteudosFragment = new ConteudosFragment();
+
+                bundle.putString("conteudo", "5 R's");
+                conteudosFragment.setArguments(bundle);
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.frameFrag, conteudosFragment)
+                        .addToBackStack("conteudos")
+                        .commit();
+            }
+        });
+
+        btnCidadeInteli.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   ConteudosFragment conteudosFragment = new ConteudosFragment();
+
+                   bundle.putString("conteudo", "Cidades Inteligentes");
+                   conteudosFragment.setArguments(bundle);
+
+                   getParentFragmentManager().beginTransaction()
+                           .replace(R.id.frameFrag, conteudosFragment)
+                           .addToBackStack("conteudos")
+                           .commit();
+               }
+           }
+        );
+
+        btnESG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConteudosFragment conteudosFragment = new ConteudosFragment();
+
+                bundle.putString("conteudo", "ESG");
+                conteudosFragment.setArguments(bundle);
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.frameFrag, conteudosFragment)
+                        .addToBackStack("conteudos")
+                        .commit();
+            }
+        });
+
+        btnRios.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   ConteudosFragment conteudosFragment = new ConteudosFragment();
+
+                   bundle.putString("conteudo", "Poluição nos Rios");
+                   conteudosFragment.setArguments(bundle);
+
+                   getParentFragmentManager().beginTransaction()
+                           .replace(R.id.frameFrag, conteudosFragment)
+                           .addToBackStack("conteudos")
+                           .commit();
+               }
+           }
+        );
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getFragmentManager() != null && getFragmentManager().getBackStackEntryCount() > 0) {
+                    getFragmentManager().popBackStack();
+                }
+            }
+        });
     }
 }

@@ -1,6 +1,8 @@
 package com.mobile.educaeco.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
@@ -8,10 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.mobile.educaeco.fragments.AprendaFragment;
 import com.mobile.educaeco.fragments.JogosFragment;
 import com.mobile.educaeco.fragments.HomeFragment;
 //import com.mobile.educaeco.fragments.Jogos;
 import com.mobile.educaeco.R;
+import com.mobile.educaeco.fragments.VideosFragment;
 
 public class Main extends AppCompatActivity {
 
@@ -28,19 +32,31 @@ public class Main extends AppCompatActivity {
         homeFragment = new HomeFragment();
         jogosFragment = new JogosFragment();
 
-
-        final FragmentTransaction[] home_frag = {getSupportFragmentManager().beginTransaction()};
-        home_frag[0].add(R.id.frameFrag, homeFragment);
-        home_frag[0].commit();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String tela = bundle.getString("tela");
+            if (tela.equals("jogos")) {
+                jogosFragment = new JogosFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frameFrag, jogosFragment)
+                        .commit();
+            } else if ( tela.equals("video") ) {
+                AprendaFragment aprendaFragment = new AprendaFragment();
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameFrag, aprendaFragment)
+                        .commit();
+            }
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameFrag, homeFragment).commit();
+        }
 
         btnHome = findViewById(R.id.btnHome);
 
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                home_frag[0] = getSupportFragmentManager().beginTransaction();
-                home_frag[0].replace(R.id.frameFrag, homeFragment);
-                home_frag[0].commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.frameFrag, homeFragment).commit();
             }
         });
 
@@ -53,5 +69,20 @@ public class Main extends AppCompatActivity {
                 fragmentTransaction.commit();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.frameFrag);
+
+        if (currentFragment instanceof JogosFragment) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frameFrag, new HomeFragment())
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

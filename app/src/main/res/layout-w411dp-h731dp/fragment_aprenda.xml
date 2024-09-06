@@ -44,8 +44,8 @@
 
         <FrameLayout
             android:id="@+id/aprenda_conteiner"
-            android:layout_width="270dp"
-            android:layout_height="470dp"
+            android:layout_width="390dp"
+            android:layout_height="590dp"
             android:layout_marginTop="70dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,8 +58,8 @@
 
                 <ImageView
                     android:id="@+id/cardAprenda"
-                    android:layout_width="270dp"
-                    android:layout_height="470dp"
+                    android:layout_width="390dp"
+                    android:layout_height="590dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -69,8 +69,8 @@
                     app:srcCompat="@drawable/opcoes_aprenda" />
 
                 <ScrollView
-                    android:layout_width="220dp"
-                    android:layout_height="370dp"
+                    android:layout_width="320dp"
+                    android:layout_height="470dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.51"

@@ -75,7 +75,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         // Encontre o botão pelo ID
         btnAprenda = view.findViewById(R.id.btnAprenda);
 
@@ -85,10 +84,9 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 aprendaFragment = new AprendaFragment();
 
-                // Trocar para o FragmentB
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.frameFrag, aprendaFragment)
-                        .addToBackStack(null)
+                        .addToBackStack("aprenda")
                         .commit();
             }
         });

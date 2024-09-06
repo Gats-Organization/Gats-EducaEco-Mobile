@@ -7,18 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.mobile.educaeco.JogoLixoZero;
+import com.mobile.educaeco.activities.JogoLixoZero;
 import com.mobile.educaeco.R;
-import com.mobile.educaeco.activities.Main;
-
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +33,7 @@ public class JogosFragment extends Fragment {
     private String mParam2;
 
     ImageView jogoLixoZero;
+    ImageView btnVoltar;
 
     public JogosFragment() {
         // Required empty public constructor
@@ -91,6 +88,19 @@ public class JogosFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), JogoLixoZero.class);
                 startActivity(intent);
                 requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        btnVoltar = view.findViewById(R.id.voltar);
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeFragment homeFragment = new HomeFragment();
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.frameFrag, homeFragment)
+                        .addToBackStack("home")
+                        .commit();
             }
         });
     }

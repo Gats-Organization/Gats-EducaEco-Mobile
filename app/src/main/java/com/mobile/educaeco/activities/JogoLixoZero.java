@@ -1,4 +1,4 @@
-package com.mobile.educaeco;
+package com.mobile.educaeco.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,8 +13,7 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.mobile.educaeco.activities.Main;
-import com.mobile.educaeco.fragments.JogosFragment;
+import com.mobile.educaeco.R;
 
 public class JogoLixoZero extends AppCompatActivity {
 
@@ -37,10 +36,15 @@ public class JogoLixoZero extends AppCompatActivity {
 
         webView.setWebViewClient(new WebViewClient());
 
+        Bundle bundle = new Bundle();
+
         fechar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("tela", "jogos");
                 Intent intent = new Intent(JogoLixoZero.this, Main.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -68,5 +72,17 @@ public class JogoLixoZero extends AppCompatActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bundle bundle = new Bundle();
+        bundle.putString("tela", "jogos");
+        Intent intent = new Intent(JogoLixoZero.this, Main.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

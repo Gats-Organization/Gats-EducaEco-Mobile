@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "12317182780",
+    "project_id": "educaeco-f6078",
+    "storage_bucket": "educaeco-f6078.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12317182780:android:3d508a72c80a9b55a26c39",
+        "android_client_info": {
+          "package_name": "com.mobile.educaeco"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv5FoXhLZQ-pmRXGpyI3usDlHUmVUHFxc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
