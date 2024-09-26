@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
         android:allowBackup="true"
@@ -14,16 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.EducaEco"
         tools:targetApi="31">
-        <activity
-            android:name=".fragments.Missoes"
-            android:exported="false" />
+
         <activity
             android:name=".activities.JogoLixoZero"
             android:exported="false"
             android:screenOrientation="landscape"/>
-        <activity
-            android:name=".fragments.Perfil"
-            android:exported="false" />
         <activity
             android:name=".activities.Main"
             android:exported="true" />

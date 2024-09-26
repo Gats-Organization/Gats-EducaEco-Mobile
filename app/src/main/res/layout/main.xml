@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divisoria2" />
 
     <ImageView
-        android:id="@+id/imageView13"
+        android:id="@+id/btnPerfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -97,7 +97,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/righteous"
-        android:text="4500px"
+        android:text="0px"
         android:textColor="#41BD3F"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/imageView14"
@@ -107,14 +107,14 @@
         android:id="@+id/nivel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="23dp"
         android:fontFamily="@font/righteous"
-        android:text="7"
+        android:text="0"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView14"
+        app:layout_constraintEnd_toEndOf="@+id/imageView14"
+        app:layout_constraintStart_toStartOf="@+id/imageView14"
+        app:layout_constraintTop_toTopOf="@+id/imageView14" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

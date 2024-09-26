@@ -3,6 +3,7 @@ package com.mobile.educaeco.activities;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -11,7 +12,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,15 +29,28 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
+import com.mobile.educaeco.Database;
 import com.mobile.educaeco.R;
+import com.mobile.educaeco.api.EducaEcoAPI;
+import com.mobile.educaeco.interfaces.EncontrarIDAlunoCallback;
+import com.mobile.educaeco.models_api.Aluno;
+import com.mobile.educaeco.models_api.Escola;
+import com.mobile.educaeco.models_api.Professor;
+import com.mobile.educaeco.models_api.Turma;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Login extends AppCompatActivity {
     Button btnLogin;
+
+    Database db = new Database();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,40 +85,8 @@ public class Login extends AppCompatActivity {
                 BottomSheetDialog modalTrocarSenha = new BottomSheetDialog(Login.this);
                 View view2 = getLayoutInflater().inflate(R.layout.modal_trocar_senha, null);
 
-                //Criação Modal de Confirmar Esqueceu a Senha
-                BottomSheetDialog modalEmailEsqueceuSenha = new BottomSheetDialog(Login.this);
-                View view3 = getLayoutInflater().inflate(R.layout.modal_confirmar_esqueceu_senha, null);
-
-                //Criação Modal de Esqueceu a Senha
-                BottomSheetDialog modalEsqueceuSenha = new BottomSheetDialog(Login.this);
-                View view4 = getLayoutInflater().inflate(R.layout.modal_esqueceu_senha, null);
-
-
-                TextView EsqueceuSenhaLogin = view1.findViewById(R.id.EsqueceuASenhaLogin);
 
                 Button btnFazerLogin = view1.findViewById(R.id.btnFazerLogin);
-
-                //Colocando a função do botão de esqueceu a senha
-                EsqueceuSenhaLogin.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        modalLogin.dismiss();
-                        modalEmailEsqueceuSenha.setContentView(view3);
-                        modalEmailEsqueceuSenha.show();
-
-                        ImageView btnRedefinir = view3.findViewById(R.id.btnRedefinir);
-
-                        btnRedefinir.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                modalEmailEsqueceuSenha.dismiss();
-                                modalEsqueceuSenha.setContentView(view4);
-                                modalEsqueceuSenha.show();
-                            }
-                        });
-
-                    }
-                });
 
                 //Colocando a função do botão de fazer login
                 btnFazerLogin.setOnClickListener(new View.OnClickListener() {
@@ -182,6 +163,8 @@ public class Login extends AppCompatActivity {
                                                                 modalTrocarSenha.dismiss();
                                                                 Intent intent = new Intent(Login.this, Main.class);
                                                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                                SharedPreferences sharedPreferences= getSharedPreferences("aluno", MODE_PRIVATE);
+                                                                db.initializeUser(inputEmail.getText().toString(), sharedPreferences);
                                                                 startActivity(intent);
                                                                 finish();
                                                             }
@@ -192,8 +175,15 @@ public class Login extends AppCompatActivity {
 
                                                     Intent intent = new Intent(Login.this, Main.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                    startActivity(intent);
-                                                    finish();
+                                                    SharedPreferences sharedPreferences= getSharedPreferences("aluno", MODE_PRIVATE);
+                                                    db.encontrar_id_aluno(inputEmail.getText().toString(), new EncontrarIDAlunoCallback() {
+                                                        @Override
+                                                        public void onIdFound(String id_aluno) {
+                                                            sharedPreferences.edit().putString("id_aluno", id_aluno).apply();
+                                                            startActivity(intent);
+                                                            finish();
+                                                        }
+                                                    });
                                                 }
                                             } else {
                                                 String msg = "Erro ao fazer login";

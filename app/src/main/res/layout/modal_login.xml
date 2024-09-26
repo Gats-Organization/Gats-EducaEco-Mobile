@@ -82,18 +82,6 @@
             android:textSize="20sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/EsqueceuASenhaLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/righteous"
-        android:gravity="center"
-        android:text="Esqueceu a senha?"
-        android:textColor="#406A2D"
-        android:textSize="16sp" />
-
     <Button
         android:id="@+id/btnFazerLogin"
         android:layout_width="274dp"
