@@ -1,9 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.EducaEco" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.EducaEco" parent="Theme.Material3.Light.NoActionBar">
     </style>
 
-    <style name="Theme.EducaEco" parent="Base.Theme.EducaEco" />
+    <style name="ThemeOverlay.EducaEco2.BtnGreen" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">#A3D977</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="ThemeOverlay.EducaEco2.BtnGreenBlack" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">#7BA856</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
 </resources>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/logo2"
+            android:layout_width="220dp"
+            android:layout_height="270dp"
+            android:src="@drawable/logo_educaeco"
+            app:layout_constraintBottom_toTopOf="@+id/btnAprenda"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.678" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="220dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/btn_ranking"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnQuiz2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/btnQuiz2"
+            app:layout_constraintTop_toBottomOf="@+id/btnQuiz2"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/btnQuiz2"
+            android:layout_width="220dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/btn_quiz"
+            app:layout_constraintEnd_toEndOf="@+id/btnPrática"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/btnPrática"
+            app:layout_constraintTop_toBottomOf="@+id/btnPrática" />
+
+        <ImageView
+            android:id="@+id/btnAprenda"
+            android:layout_width="220dp"
+            android:layout_height="70dp"
+            android:src="@drawable/btn_aprenda"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.53" />
+
+        <ImageView
+            android:id="@+id/btnPrática"
+            android:layout_width="220dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/btn_pratica"
+            app:layout_constraintEnd_toEndOf="@+id/btnAprenda"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/btnAprenda"
+            app:layout_constraintTop_toBottomOf="@+id/btnAprenda" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

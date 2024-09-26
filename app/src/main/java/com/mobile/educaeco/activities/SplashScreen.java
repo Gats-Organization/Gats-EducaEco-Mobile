@@ -1,4 +1,4 @@
-package com.mobile.educaeco;
+package com.mobile.educaeco.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.os.Looper;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.mobile.educaeco.R;
 
 public class SplashScreen extends AppCompatActivity {
     ImageView imgSplash;

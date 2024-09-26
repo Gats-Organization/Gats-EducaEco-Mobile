@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Base.Theme.EducaEco">
+
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/trocarSenhaTituloModal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/righteous"
+        android:gravity="center"
+        android:text="Trocar Senha"
+        android:textColor="#406A2D"
+        android:textSize="24sp" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputEmailLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:layout_marginTop="20dp"
+        android:hint="E-mail"
+        android:textColorHint="#4D000000"
+        app:boxStrokeColor="#4D000000"
+        app:helperTextTextColor="#4D000000"
+        app:hintTextColor="#4D000000"
+        app:startIconTint="#4D000000">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:drawableStart="@drawable/email_icon"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/righteous"
+            android:textColor="#000000"
+            android:textColorHighlight="#4D000000"
+            android:textColorLink="#4D000000"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="20sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputSenhaLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:hint="Nova Senha"
+        android:textColorHint="#4D000000"
+        app:boxStrokeColor="#4D000000"
+        app:helperTextTextColor="#4D000000"
+        app:hintTextColor="#4D000000"
+        app:placeholderTextColor="#4D000000"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/password_icon"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/righteous"
+            android:inputType="text|textPassword"
+            android:textColor="#000000"
+            android:textColorHighlight="#4D000000"
+            android:textColorLink="#4DFFFFFF"
+            android:textCursorDrawable="@drawable/cursor_color"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/btnFazerLoginTrocarSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="1"
+        app:srcCompat="@drawable/btn_fazer_login" />
+
+</LinearLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="515dp"
+    android:layout_gravity="center"
+    android:padding="20dp"
+    app:cardBackgroundColor="#B4EB87"
+    app:cardCornerRadius="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/titulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:fontFamily="@font/righteous"
+            android:text="ODS da ONU"
+            android:textColor="#406A2D"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/conteudos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/righteous"
+            android:text="Conteúdos"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/btnConteudos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_videos" />
+
+        <ScrollView
+            android:layout_width="220dp"
+            android:layout_height="370dp"
+            android:layout_marginTop="15dp"
+            android:foregroundGravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titulo">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textoConteudo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/righteous"
+                    android:text="As Objetivos de Desenvolvimento Sustentável (ODS) são uma série de metas globais estabelecidas pela Organização das Nações Unidas (ONU) em 2015 como parte da Agenda 2030 para o Desenvolvimento Sustentável. Esses objetivos representam um chamado universal à ação para acabar com a pobreza, proteger o planeta e garantir que todas as pessoas vivam em paz e prosperidade.  Os 17 ODS abordam uma ampla gama de questões interconectadas, incluindo pobreza, fome, saúde, educação, igualdade de gênero, acesso à água limpa, energia sustentável, emprego digno, inovação e infraestrutura, redução das desigualdades, ação climática, paz e justiça, entre outras. Cada objetivo é acompanhado por metas específicas que devem ser alcançadas até 2030.  Esses objetivos não apenas visam melhorar a vida das pessoas em todo o mundo, mas também proteger o meio ambiente e promover a prosperidade econômica de forma equitativa. O sucesso na consecução dos ODS depende da colaboração global entre governos, setor privado, sociedade civil e indivíduos, trabalhando juntos para construir um futuro sustentável e inclusivo para todos."
+                    android:textColor="#406A2D" />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

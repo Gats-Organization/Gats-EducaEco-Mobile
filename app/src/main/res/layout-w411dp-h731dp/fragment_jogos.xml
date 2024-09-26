@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.AprendaFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        tools:context=".activities.Home">
+
+
+        <ImageView
+            android:id="@+id/voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:theme="@style/Base.Theme.EducaEco"
+            app:layout_constraintBottom_toTopOf="@+id/jogoLixoZero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/pagName"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            app:srcCompat="@drawable/btn_voltar" />
+
+        <TextView
+            android:id="@+id/pagName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/righteous"
+            android:text="Jogos"
+            android:textColor="#6D6D6D"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toTopOf="@+id/jogoLixoZero"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/voltar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <ImageView
+            android:id="@+id/jogoLixoZero"
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="70dp"
+            android:backgroundTint="@android:color/transparent"
+            android:scaleX="1"
+            android:scaleY="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.163"
+            app:srcCompat="@drawable/btn_jogo_lixo_zero" />
+
+        <ImageView
+            android:id="@+id/jogoLutaEco"
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:src="@drawable/btn_jogo_luta_eco"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/jogoLixoZero"
+            app:layout_constraintVertical_bias="0.606" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
