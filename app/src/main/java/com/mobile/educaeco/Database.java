@@ -220,6 +220,7 @@ public class Database {
                                     } else {
                                     }
                                 } else {
+                                    missoes.add(null);
                                 }
                             }
 
@@ -230,7 +231,6 @@ public class Database {
                         });
 
                     }
-                    Log.d("Missoes","está vazio");
                 });
     }
 
@@ -271,6 +271,36 @@ public class Database {
                     }
                 });
     }
+
+    public void updateStatus(String id_aluno, String id_missao) {
+        // Consulta para localizar o documento
+        db.collection("controle_missoes")
+                .whereEqualTo("id_aluno", Long.parseLong(id_aluno))
+                .whereEqualTo("id_missao", Long.parseLong(id_missao))
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    if (!queryDocumentSnapshots.isEmpty()) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            if (document.getBoolean("status") == false) {
+                                db.collection("controle_missoes").document(document.getId())
+                                        .update("status", true)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Log.d("Firestore", "Status atualizado com sucesso!");
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Log.w("Firestore", "Erro ao atualizar o status", e);
+                                        });
+                            }
+                        }
+                    } else {
+                        Log.d("Firestore", "Nenhum documento encontrado para os critérios especificados.");
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Log.w("Firestore", "Erro ao buscar controle de missões", e);
+                });
+    }
+
 
 }
 

@@ -40,10 +40,17 @@ public class ActivityVideo extends AppCompatActivity {
         btnExpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                Database db = new Database();
+                SharedPreferences sharedPreferences = getSharedPreferences("aluno", MODE_PRIVATE);
+                String id_aluno = sharedPreferences.getString("id_aluno", "");
+                db.updateStatus(id_aluno, "2");
+                bundle.putString("tela", "jogos");
                 Intent intent = new Intent(ActivityVideo.this, Main.class);
-                intent.putExtra("tela", "video");
+                intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
     }

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -94,9 +95,10 @@ public class MissoesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ProgressBar loading = view.findViewById(R.id.load);
+        ImageView missao_recado = view.findViewById(R.id.missao_concluida);
 
         loading.setVisibility(View.VISIBLE);
-
+        missao_recado.setVisibility(View.INVISIBLE);
 
         recyclerMissoes = view.findViewById(R.id.listaMissoes);
 
@@ -107,15 +109,25 @@ public class MissoesFragment extends Fragment {
         String idAluno = sharedPreferences.getString("id_aluno", "");
 
         recyclerMissoes.setAdapter(adapterMissoes);
+
+        // Log para verificar se a função está sendo chamada
+        Log.d("MissoesFragment", "Iniciando consulta de missões para o aluno: " + idAluno);
+
         db.getMissoesByIdAlunoStatus(idAluno, listaMissoes, adapterMissoes, new MissoesCallback() {
             @Override
             public void onCallback(List<Missao> missoes) {
-                Log.e("missoes", missoes.toString());
+                Log.d("MissoesFragment", "Callback recebido com " + missoes.size() + " missões");
+
                 loading.setVisibility(View.GONE);
+
+                if ( missoes == null  ) {
+                    missao_recado.setVisibility(View.VISIBLE);
+                }
 
                 adapterMissoes = new AdapterMissao(missoes);
                 recyclerMissoes.setAdapter(adapterMissoes);
             }
         });
     }
+
 }
