@@ -50,6 +50,7 @@ public class Login extends AppCompatActivity {
     Button btnLogin;
 
     Database db = new Database();
+    private EducaEcoAPI api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,8 +181,11 @@ public class Login extends AppCompatActivity {
                                                         @Override
                                                         public void onIdFound(String id_aluno) {
                                                             sharedPreferences.edit().putString("id_aluno", id_aluno).apply();
-                                                            startActivity(intent);
-                                                            finish();
+                                                            String idAluno = sharedPreferences.getString("id_aluno", "");
+
+                                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                                            pegarInformaçõesAluno(idAluno, editor, sharedPreferences, intent);
                                                         }
                                                     });
                                                 }
@@ -234,5 +238,47 @@ public class Login extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnected();
+    }
+
+    public void pegarInformaçõesAluno(String idAluno, SharedPreferences.Editor editor, SharedPreferences sharedPreferences, Intent intent) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://gats-repository-api.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(EducaEcoAPI.class);
+
+        Call<Aluno> call = api.getAluno(idAluno);
+        call.enqueue(new Callback<Aluno>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<Aluno> call, Response<Aluno> response) {
+                Aluno aluno = response.body();
+
+                if (aluno != null) {
+                    editor.putString("nome", aluno.getNome() + " " + aluno.getSobrenome());
+                    editor.putString("email", aluno.getEmail());
+
+                    Turma turma = aluno.getTurma();
+                    editor.putString("turma", turma.getSerie() + " ano " + turma.getNomenclatura());
+                    Escola escola = turma.getEscola();
+                    editor.putString("escola", escola.getNome());
+                    Professor professor = turma.getProfessor();
+                    editor.putString("professor", professor.getNome());
+                    editor.putInt("xp", aluno.getXp());
+                    editor.commit();
+
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(Login.this, "Falha ao carregar os dados do usuário!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Aluno> call, Throwable t) {
+                Toast.makeText(Login.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

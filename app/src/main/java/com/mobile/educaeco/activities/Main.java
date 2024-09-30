@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -41,24 +42,28 @@ public class Main extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     ImageView btnHome, btnJogos, btnMissoes, btnPerfil;
     TextView xp, nivel;
-    private EducaEcoAPI api;
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("aluno", MODE_PRIVATE);
-        String idAluno = sharedPreferences.getString("id_aluno", "");
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
         Bundle bundle = getIntent().getExtras();
-
-        pegarInformaçõesAluno(idAluno, editor, sharedPreferences);
 
         homeFragment = new HomeFragment();
         jogosFragment = new JogosFragment();
+
+
+        xp = findViewById(R.id.xp);
+        nivel = findViewById(R.id.nivel);
+
+        SharedPreferences sharedPreferences= getSharedPreferences("aluno", MODE_PRIVATE);
+
+        xp.setText(String.valueOf(sharedPreferences.getInt("xp", 0) + "xp"));
+
+        int nivelNumber = (sharedPreferences.getInt("xp", -1) / 100) + 1;
+
+        nivel.setText(String.valueOf(nivelNumber));
 
 
         if (bundle != null) {
@@ -136,52 +141,4 @@ public class Main extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-    public void pegarInformaçõesAluno(String idAluno, SharedPreferences.Editor editor, SharedPreferences sharedPreferences) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://gats-repository-api.onrender.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        api = retrofit.create(EducaEcoAPI.class);
-
-        Call<Aluno> call = api.getAluno(idAluno);
-        call.enqueue(new Callback<Aluno>() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onResponse(Call<Aluno> call, Response<Aluno> response) {
-                Aluno aluno = response.body();
-
-                if (aluno != null) {
-                    editor.putString("nome", aluno.getNome() + " " + aluno.getSobrenome());
-                    editor.putString("email", aluno.getEmail());
-
-                    Turma turma = aluno.getTurma();
-                    editor.putString("turma", turma.getSerie() + " ano " + turma.getNomenclatura());
-                    Escola escola = turma.getEscola();
-                    editor.putString("escola", escola.getNome());
-                    Professor professor = turma.getProfessor();
-                    editor.putString("professor", professor.getNome());
-                    editor.putInt("xp", aluno.getXp());
-                    editor.commit();
-
-                    xp = findViewById(R.id.xp);
-                    nivel = findViewById(R.id.nivel);
-
-                    xp.setText(String.valueOf(aluno.getXp() + "xp"));
-
-                    int nivelNumber = (sharedPreferences.getInt("xp", -1) / 100) + 1;
-
-                    nivel.setText(String.valueOf(nivelNumber));
-                } else {
-                    Toast.makeText(Main.this, "Aluno não encontrado", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Aluno> call, Throwable t) {
-                Toast.makeText(Main.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 }

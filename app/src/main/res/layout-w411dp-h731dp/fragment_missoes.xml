@@ -62,6 +62,16 @@
             app:layout_constraintStart_toStartOf="@+id/listaMissoes"
             app:layout_constraintTop_toTopOf="@+id/listaMissoes" />
 
+        <ImageView
+            android:id="@+id/missao_concluida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/missoes_concluidas"
+            app:layout_constraintBottom_toBottomOf="@+id/listaMissoes"
+            app:layout_constraintEnd_toEndOf="@+id/listaMissoes"
+            app:layout_constraintStart_toStartOf="@+id/listaMissoes"
+            app:layout_constraintTop_toTopOf="@+id/listaMissoes" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

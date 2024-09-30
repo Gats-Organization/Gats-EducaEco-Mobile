@@ -24,6 +24,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mobile.educaeco.Database;
 import com.mobile.educaeco.R;
 
 public class JogoLixoZero extends AppCompatActivity {
@@ -83,6 +84,10 @@ public class JogoLixoZero extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
+                Database db = new Database();
+                SharedPreferences sharedPreferences = getSharedPreferences("aluno", MODE_PRIVATE);
+                String id_aluno = sharedPreferences.getString("id_aluno", "");
+                db.updateStatus(id_aluno, "1");
                 bundle.putString("tela", "jogos");
                 Intent intent = new Intent(JogoLixoZero.this, Main.class);
                 intent.putExtras(bundle);
@@ -119,6 +124,10 @@ public class JogoLixoZero extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Bundle bundle = new Bundle();
+        Database db = new Database();
+        SharedPreferences sharedPreferences = getSharedPreferences("aluno", MODE_PRIVATE);
+        String id_aluno = sharedPreferences.getString("id_aluno", "");
+        db.updateStatus(id_aluno, "2");
         bundle.putString("tela", "jogos");
         Intent intent = new Intent(JogoLixoZero.this, Main.class);
         intent.putExtras(bundle);
