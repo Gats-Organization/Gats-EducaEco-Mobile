@@ -15,12 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.mobile.educaeco.Database;
 import com.mobile.educaeco.R;
 import com.mobile.educaeco.activities.Login;
-
-import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,7 +77,7 @@ public class PerfilFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ImageView btnVoltar = view.findViewById(R.id.voltar);
-        TextView logout = view.findViewById(R.id.logout);
+        TextView logout = view.findViewById(R.id.logoutAdmin);
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +114,7 @@ public class PerfilFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getActivity(), Login.class);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 

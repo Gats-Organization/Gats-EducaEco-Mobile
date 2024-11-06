@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,11 +34,13 @@ import com.mobile.educaeco.Database;
 import com.mobile.educaeco.R;
 import com.mobile.educaeco.api.EducaEcoAPI;
 import com.mobile.educaeco.interfaces.EncontrarIDAlunoCallback;
+import com.mobile.educaeco.models_api.Admin;
 import com.mobile.educaeco.models_api.Aluno;
 import com.mobile.educaeco.models_api.Escola;
 import com.mobile.educaeco.models_api.Professor;
 import com.mobile.educaeco.models_api.Turma;
 
+import java.util.List;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -51,7 +54,6 @@ public class Login extends AppCompatActivity {
 
     Database db = new Database();
     private EducaEcoAPI api;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +70,17 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        boolean isAdminLogged = sharedPreferences.getBoolean("isAdminLogged", false);
+
+        if (isAdminLogged) {
+            Intent intent = new Intent(Login.this, com.mobile.educaeco.activities.Admin.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+
 
         btnLogin = findViewById(R.id.btnLogin);
 
@@ -161,13 +174,48 @@ public class Login extends AppCompatActivity {
                                                         public void onClick(View v) {
                                                             if (  Objects.requireNonNull(inputEmailTrocarSenha.getText()).toString().equals(inputEmail.getText().toString()) ) {
                                                                 updatePassword("Gats2024@", inputNovaSenha.getText().toString());
+                                                                mudarSenha(inputEmail.getText().toString(), inputNovaSenha.getText().toString());
                                                                 modalTrocarSenha.dismiss();
-                                                                Intent intent = new Intent(Login.this, Main.class);
-                                                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                                SharedPreferences sharedPreferences= getSharedPreferences("aluno", MODE_PRIVATE);
-                                                                db.initializeUser(inputEmail.getText().toString(), sharedPreferences);
-                                                                startActivity(intent);
-                                                                finish();
+                                                                autenticar.signOut();
+                                                                autenticar.signInWithEmailAndPassword(inputEmail.getText().toString(), inputNovaSenha.getText().toString())
+                                                                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                                                            @Override
+                                                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                                if (  task.isSuccessful() ) {
+                                                                                    Intent intent = new Intent(Login.this, Main.class);
+                                                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                                                    SharedPreferences sharedPreferences = getSharedPreferences("aluno", MODE_PRIVATE);
+                                                                                    db.initializeUser(inputEmail.getText().toString(), sharedPreferences);
+
+                                                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                                                            .baseUrl("https://gats-educaeco-api-dev2-pe6e.onrender.com/")
+                                                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                                                            .build();
+                                                                                    api = retrofit.create(EducaEcoAPI.class);
+
+                                                                                    Call<Aluno> call = api.getAlunoByEmail(inputEmail.getText().toString());
+
+                                                                                    call.enqueue(new Callback<Aluno>() {
+                                                                                        @Override
+                                                                                        public void onResponse(Call<Aluno> call, Response<Aluno> response) {
+                                                                                            Aluno aluno = response.body();
+                                                                                            sharedPreferences.edit().putString("id_aluno", String.valueOf((aluno.getId()))).apply();
+                                                                                            String idAluno = sharedPreferences.getString("id_aluno", "");
+
+                                                                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                                                                            pegarInformaçõesAluno(idAluno, editor, sharedPreferences, intent);
+                                                                                        }
+
+                                                                                        @Override
+                                                                                        public void onFailure(Call<Aluno> call, Throwable t) {
+                                                                                            Toast.makeText(Login.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                                                            Log.e("Error", t.getMessage());
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            }
+                                                                        });
                                                             }
                                                         }
                                                     });
@@ -177,32 +225,36 @@ public class Login extends AppCompatActivity {
                                                     Intent intent = new Intent(Login.this, Main.class);
                                                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                                     SharedPreferences sharedPreferences= getSharedPreferences("aluno", MODE_PRIVATE);
-                                                    db.encontrar_id_aluno(inputEmail.getText().toString(), new EncontrarIDAlunoCallback() {
+
+                                                    Retrofit retrofit = new Retrofit.Builder()
+                                                            .baseUrl("https://gats-educaeco-api-dev2-pe6e.onrender.com/")
+                                                            .addConverterFactory(GsonConverterFactory.create())
+                                                            .build();
+                                                    api = retrofit.create(EducaEcoAPI.class);
+
+                                                    Call<Aluno> call = api.getAlunoByEmail(inputEmail.getText().toString());
+
+                                                    call.enqueue(new Callback<Aluno>() {
                                                         @Override
-                                                        public void onIdFound(String id_aluno) {
-                                                            sharedPreferences.edit().putString("id_aluno", id_aluno).apply();
+                                                        public void onResponse(Call<Aluno> call, Response<Aluno> response) {
+                                                            Aluno aluno = response.body();
+                                                            sharedPreferences.edit().putString("id_aluno", String.valueOf((aluno.getId()))).apply();
                                                             String idAluno = sharedPreferences.getString("id_aluno", "");
 
                                                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
                                                             pegarInformaçõesAluno(idAluno, editor, sharedPreferences, intent);
                                                         }
+
+                                                        @Override
+                                                        public void onFailure(Call<Aluno> call, Throwable t) {
+                                                            Toast.makeText(Login.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                            Log.e("Error", t.getMessage());
+                                                        }
                                                     });
                                                 }
                                             } else {
-                                                String msg = "Erro ao fazer login";
-                                                try {
-                                                    throw task.getException();
-                                                } catch (FirebaseAuthInvalidUserException e) {
-                                                    msg = "O email digitado está invalido";
-                                                    inputEmailLayout.setError(msg);
-                                                } catch (FirebaseAuthInvalidCredentialsException e) {
-                                                    msg = "A senha e/ou email estão inválidos";
-                                                    inputSenhaLayout.setError(msg);
-                                                    inputEmailLayout.setError(" ");
-                                                } catch (Exception e) {
-                                                    msg = e.getMessage();
-                                                }
+                                                isAdmin(inputEmail.getText().toString(), inputSenha.getText().toString(), inputEmailLayout, inputSenhaLayout, task);
                                             }
                                         }
                                     });
@@ -242,7 +294,7 @@ public class Login extends AppCompatActivity {
 
     public void pegarInformaçõesAluno(String idAluno, SharedPreferences.Editor editor, SharedPreferences sharedPreferences, Intent intent) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://gats-repository-api.onrender.com/")
+                .baseUrl("https://gats-educaeco-api-dev2-pe6e.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(EducaEcoAPI.class);
@@ -255,6 +307,9 @@ public class Login extends AppCompatActivity {
                 Aluno aluno = response.body();
 
                 if (aluno != null) {
+                    editor.clear();
+
+                    editor.putString("id_aluno", idAluno);
                     editor.putString("nome", aluno.getNome() + " " + aluno.getSobrenome());
                     editor.putString("email", aluno.getEmail());
 
@@ -278,6 +333,87 @@ public class Login extends AppCompatActivity {
             public void onFailure(Call<Aluno> call, Throwable t) {
                 Toast.makeText(Login.this, "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
 
+            }
+        });
+    }
+
+    public void mudarSenha(String email, String novaSenha) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://gats-educaeco-api-dev2-pe6e.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(EducaEcoAPI.class);
+
+        Call<Void> call = api.atualizarSenha(email, novaSenha);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("Sucesso", response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("Erro", t.getMessage());
+            }
+        });
+    }
+
+    public void isAdmin(String email, String senha, TextInputLayout inputEmailLayout, TextInputLayout inputSenhaLayout, Task<AuthResult> task) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://gats-educaeco-api-dev2-pe6e.onrender.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        api = retrofit.create(EducaEcoAPI.class);
+
+        Call<List<Admin>> call = api.getAdmins();
+        call.enqueue(new Callback<List<Admin>>() {
+            @Override
+            public void onResponse(Call<List<Admin>> call, Response<List<Admin>> response) {
+                List<Admin> admins = response.body();
+                if ( admins != null ) {
+                    for (Admin admin : admins) {
+                        if ( admin.getEmail().equals(email) && admin.getSenha().equals(senha) ) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("isAdminLogged", true);
+                            editor.apply();
+                            Intent intent = new Intent(getApplicationContext(), com.mobile.educaeco.activities.Admin.class);
+                            startActivity(intent);
+                            finish();
+                            return;
+                        }
+                    }
+                }
+                String msg = "Erro ao fazer login";
+                try {
+                    throw task.getException();
+                } catch (FirebaseAuthInvalidUserException e) {
+                    msg = "O email digitado está invalido";
+                    inputEmailLayout.setError(msg);
+                } catch (FirebaseAuthInvalidCredentialsException e) {
+                    msg = "A senha e/ou email estão inválidos";
+                    inputSenhaLayout.setError(msg);
+                    inputEmailLayout.setError(" ");
+                } catch (Exception e) {
+                    msg = e.getMessage();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Admin>> call, Throwable t) {
+                String msg = "Erro ao fazer login";
+                try {
+                    throw task.getException();
+                } catch (FirebaseAuthInvalidUserException e) {
+                    msg = "O email digitado está invalido";
+                    inputEmailLayout.setError(msg);
+                } catch (FirebaseAuthInvalidCredentialsException e) {
+                    msg = "A senha e/ou email estão inválidos";
+                    inputSenhaLayout.setError(msg);
+                    inputEmailLayout.setError(" ");
+                } catch (Exception e) {
+                    msg = e.getMessage();
+                }
             }
         });
     }

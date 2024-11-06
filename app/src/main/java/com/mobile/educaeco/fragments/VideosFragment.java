@@ -94,7 +94,7 @@ public class VideosFragment extends Fragment {
 
         recyclerVideos = view.findViewById(R.id.listaVideos);
 
-        adapterVideos = new AdapterVideo(listaVideos);
+        adapterVideos = new AdapterVideo(listaVideos, getContext());
         recyclerVideos.setLayoutManager(new LinearLayoutManager(getContext()));
 
         db = new Database();
@@ -108,7 +108,7 @@ public class VideosFragment extends Fragment {
                 public void onCallback(List<Video> videoList) {
                     loading.setVisibility(View.GONE);
 
-                    adapterVideos = new AdapterVideo(videoList);
+                    adapterVideos = new AdapterVideo(videoList, getContext());
                     recyclerVideos.setAdapter(adapterVideos);
                 }
             });

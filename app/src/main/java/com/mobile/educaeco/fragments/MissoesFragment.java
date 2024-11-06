@@ -11,22 +11,19 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.mobile.educaeco.Database;
 import com.mobile.educaeco.R;
 import com.mobile.educaeco.adapters.AdapterMissao;
-import com.mobile.educaeco.adapters.AdapterVideo;
 import com.mobile.educaeco.interfaces.MissoesCallback;
 import com.mobile.educaeco.models.Missao;
-import com.mobile.educaeco.models.Video;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +48,9 @@ public class MissoesFragment extends Fragment {
     AdapterMissao adapterMissoes;
     List<Missao> listaMissoes = new ArrayList<>();
     Database db = new Database();
+    private static final long TIMEOUT_DURATION = 5000; // Tempo limite em milissegundos (10 segundos)
+    private Handler timeoutHandler;
+    private Runnable timeoutRunnable;
 
     public MissoesFragment() {
         // Required empty public constructor
@@ -94,13 +94,26 @@ public class MissoesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ImageView btnVoltar = view.findViewById(R.id.voltar);
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeFragment homeFragment = new HomeFragment();
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.frameFrag, homeFragment)
+                        .addToBackStack("home")
+                        .commit();
+            }
+        });
+
         ProgressBar loading = view.findViewById(R.id.load);
         ImageView missao_recado = view.findViewById(R.id.missao_concluida);
 
         loading.setVisibility(View.VISIBLE);
         missao_recado.setVisibility(View.INVISIBLE);
 
-        recyclerMissoes = view.findViewById(R.id.listaMissoes);
+        recyclerMissoes = view.findViewById(R.id.listaPraticas);
 
         adapterMissoes = new AdapterMissao(new ArrayList<>());
         recyclerMissoes.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -110,12 +123,18 @@ public class MissoesFragment extends Fragment {
 
         recyclerMissoes.setAdapter(adapterMissoes);
 
-        // Log para verificar se a função está sendo chamada
-        Log.d("MissoesFragment", "Iniciando consulta de missões para o aluno: " + idAluno);
+        timeoutHandler = new Handler();
+        timeoutRunnable = () -> {
+            loading.setVisibility(View.GONE);
+            missao_recado.setVisibility(View.VISIBLE);
+            Log.e("Timeout", "Tempo limite atingido para carregar as missões");
+        };
+        timeoutHandler.postDelayed(timeoutRunnable, TIMEOUT_DURATION);
 
         db.getMissoesByIdAlunoStatus(idAluno, listaMissoes, adapterMissoes, new MissoesCallback() {
             @Override
             public void onCallback(List<Missao> missoes) {
+                timeoutHandler.removeCallbacks(timeoutRunnable);
                 Log.d("MissoesFragment", "Callback recebido com " + missoes.size() + " missões");
 
                 loading.setVisibility(View.GONE);
@@ -128,6 +147,15 @@ public class MissoesFragment extends Fragment {
                 recyclerMissoes.setAdapter(adapterMissoes);
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Certifique-se de remover qualquer callback quando a visão for destruída
+        if (timeoutHandler != null) {
+            timeoutHandler.removeCallbacks(timeoutRunnable);
+        }
     }
 
 }

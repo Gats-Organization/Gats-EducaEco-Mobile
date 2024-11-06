@@ -1,7 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.EducaEco" parent="Theme.Material3.Light.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
+
+    <style name="ThemeOverlay.EducaEco2.BtnGreen" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">#A3D977</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="ThemeOverlay.EducaEco2.BtnRed" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">#F06E6E</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="ThemeOverlay.EducaEco2.BtnGreenBlack" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">#7BA856</item>
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 </resources>

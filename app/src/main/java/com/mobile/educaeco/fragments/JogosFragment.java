@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.mobile.educaeco.NetworkUtil;
 import com.mobile.educaeco.activities.JogoLixoZero;
 import com.mobile.educaeco.R;
 
@@ -84,10 +86,14 @@ public class JogosFragment extends Fragment {
         jogoLixoZero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                Intent intent = new Intent(getActivity(), JogoLixoZero.class);
-                startActivity(intent);
-                requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if ( NetworkUtil.isNetworkAvailable(getContext()) ) {
+                    requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                    Intent intent = new Intent(getActivity(), JogoLixoZero.class);
+                    startActivity(intent);
+                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else {
+                    showNoInternetToast();
+                }
             }
         });
 
@@ -103,5 +109,9 @@ public class JogosFragment extends Fragment {
                         .commit();
             }
         });
+    }
+
+    private void showNoInternetToast() {
+        Toast.makeText(getContext(), "Sem conexão com a internet. Verifique e tente novamente.", Toast.LENGTH_LONG).show();
     }
 }

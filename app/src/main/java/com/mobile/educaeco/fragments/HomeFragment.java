@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.mobile.educaeco.NetworkUtil;
 import com.mobile.educaeco.R;
 
 /**
@@ -77,18 +79,73 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         // Encontre o botão pelo ID
         btnAprenda = view.findViewById(R.id.btnAprenda);
+        btnRanking = view.findViewById(R.id.btnRanking);
+        btnQuiz = view.findViewById(R.id.btnQuiz);
+        btnPratica = view.findViewById(R.id.btnPrática);
 
         // Definir o clique do botão para trocar de fragmento
         btnAprenda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aprendaFragment = new AprendaFragment();
-
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.frameFrag, aprendaFragment)
-                        .addToBackStack("aprenda")
-                        .commit();
+                if ( NetworkUtil.isNetworkAvailable(getContext()) ) {
+                    aprendaFragment = new AprendaFragment();
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.frameFrag, aprendaFragment)
+                            .addToBackStack("aprenda")
+                            .commit();
+                } else {
+                    showNoInternetToast();
+                }
             }
         });
+
+        btnPratica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( NetworkUtil.isNetworkAvailable(getContext()) ) {
+                    PraticaFragment praticaFragment = new PraticaFragment();
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.frameFrag, praticaFragment)
+                            .addToBackStack("pratica")
+                            .commit();
+                } else {
+                    showNoInternetToast();
+                }
+            }
+        });
+
+        btnQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( NetworkUtil.isNetworkAvailable(getContext()) ) {
+                    QuizFragment quizFragment = new QuizFragment();
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.frameFrag, quizFragment)
+                            .addToBackStack("quiz")
+                            .commit();
+                } else {
+                    showNoInternetToast();
+                }
+            }
+        });
+
+        btnRanking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if ( NetworkUtil.isNetworkAvailable(getContext()) ) {
+                    RankingFragment rankingFragment = new RankingFragment();
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.frameFrag, rankingFragment)
+                            .addToBackStack("ranking")
+                            .commit();
+                } else {
+                    showNoInternetToast();
+                }
+            }
+        });
+    }
+
+    private void showNoInternetToast() {
+        Toast.makeText(getContext(), "Sem conexão com a internet. Verifique e tente novamente.", Toast.LENGTH_LONG).show();
     }
 }
