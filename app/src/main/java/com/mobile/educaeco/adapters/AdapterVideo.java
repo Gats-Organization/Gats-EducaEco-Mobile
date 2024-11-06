@@ -14,8 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobile.educaeco.NetworkUtil;
 import com.mobile.educaeco.R;
 import com.mobile.educaeco.activities.ActivityVideo;
+import com.mobile.educaeco.fragments.RankingFragment;
 import com.mobile.educaeco.models.Video;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -30,9 +32,11 @@ import java.util.List;
 public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.ViewHolder>{
 
     public List<Video> listaVideo;
+    private Context context;
 
-    public AdapterVideo(List<Video> listaVideo) {
+    public AdapterVideo(List<Video> listaVideo, Context context) {
         this.listaVideo = listaVideo;
+        this.context = context;
     }
 
     @NonNull
@@ -59,9 +63,15 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.ViewHolder>{
             holder.btnExpand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(holder.itemView.getContext(), ActivityVideo.class);
-                    intent.putExtra("video_url", video.getVideo_url());
-                    holder.itemView.getContext().startActivity(intent);
+
+
+                    if ( NetworkUtil.isNetworkAvailable(context) ) {
+                        Intent intent = new Intent(holder.itemView.getContext(), ActivityVideo.class);
+                        intent.putExtra("video_url", video.getVideo_url());
+                        holder.itemView.getContext().startActivity(intent);
+                    } else {
+                        showNoInternetToast();
+                    }
                 }
             });
         }
@@ -84,6 +94,10 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.ViewHolder>{
             video = itemView.findViewById(R.id.video);
             btnExpand = itemView.findViewById(R.id.btnExpand);
         }
+    }
+
+    private void showNoInternetToast() {
+        Toast.makeText(context, "Sem conexão com a internet. Verifique e tente novamente.", Toast.LENGTH_LONG).show();
     }
 }
 

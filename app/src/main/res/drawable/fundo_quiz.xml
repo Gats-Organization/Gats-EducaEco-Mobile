@@ -1,0 +1,5 @@
+<!-- res/drawable/rounded_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#4AAFC6"/> <!-- Cor de fundo do ConstraintLayout -->
+    <corners android:radius="14dp"/> <!-- Raio dos cantos arredondados -->
+</shape>

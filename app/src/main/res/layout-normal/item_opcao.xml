@@ -1,0 +1,35 @@
+<!-- item_option.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/relative"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#FFFF"
+    android:backgroundTint="#00F33A3A">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:cardBackgroundColor="#4AAFC6"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp">
+
+        <TextView
+            android:id="@+id/opcao"
+            android:layout_width="345dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/righteous"
+            android:gravity="start"
+            android:padding="16dp"
+            android:text="Alternativa"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

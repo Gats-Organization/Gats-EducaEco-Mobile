@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.HomeFragment"
+    tools:ignore="MissingDefaultResource">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/logo2"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/logo_educaeco" />
+
+            <ImageView
+                android:id="@+id/btnAprenda"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:src="@drawable/btn_aprenda" />
+
+            <ImageView
+                android:id="@+id/btnPrática"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/btn_pratica" />
+
+            <ImageView
+                android:id="@+id/btnQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/btn_quiz" />
+
+            <ImageView
+                android:id="@+id/btnRanking"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/btn_ranking" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

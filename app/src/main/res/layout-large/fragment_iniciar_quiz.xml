@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".fragments.QuizFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="70dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/voltar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:theme="@style/Base.Theme.EducaEco"
+                    app:srcCompat="@drawable/btn_voltar" />
+
+                <TextView
+                    android:id="@+id/pagName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/righteous"
+                    android:text="Quiz"
+                    android:textColor="#6D6D6D"
+                    android:textSize="32sp" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/fundoIniciarQuiz"
+                    android:layout_width="300dp"
+                    android:layout_height="515dp"
+                    android:src="@drawable/fundo_iniciar_quiz"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.494"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:id="@+id/btnIniciarQuiz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/btn_iniciar_quiz"
+                    app:layout_constraintBottom_toBottomOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintEnd_toEndOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintStart_toStartOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintTop_toBottomOf="@+id/textinho" />
+
+                <TextView
+                    android:id="@+id/temaIniciarQuiz"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="175dp"
+                    android:fontFamily="@font/righteous"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintStart_toStartOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintTop_toTopOf="@+id/fundoIniciarQuiz" />
+
+                <TextView
+                    android:id="@+id/quantQuestoesIniciarQuiz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/righteous"
+                    android:text="TextView"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintHorizontal_bias="0.459"
+                    app:layout_constraintStart_toStartOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintTop_toBottomOf="@+id/temaIniciarQuiz" />
+
+                <TextView
+                    android:id="@+id/textinho"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/righteous"
+                    android:text="Vamos lá! Sua vez de colocar em prática tudo o que vem aprendendo, confio em você!"
+                    android:textColor="#FFFFFF"
+                    app:layout_constraintEnd_toEndOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintStart_toStartOf="@+id/fundoIniciarQuiz"
+                    app:layout_constraintTop_toBottomOf="@+id/quantQuestoesIniciarQuiz" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
